@@ -29,7 +29,7 @@ namespace MyStuff
                 );
             builder.Entity<Item>().HasData(
                 new Item() { Id = 1, Name = "Pillow", Description = "Main pillow", Image = "", PlacementNotes = "At the head of the bed", StorageId = 1},
-                new Item() { Id = 2, Name = "Forks", Description = "Forks"}
+                new Item() { Id = 2, Name = "Forks", Description = "Forks", Image = "", PlacementNotes = "In the silverware drawer", StorageId = 2}
                 );
         }
     }
