@@ -16,7 +16,7 @@ namespace MyStuff.Controllers
         // GET: LocationController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(_db.Locations.Find(id));
         }
 
         // GET: LocationController/Create
