@@ -8,78 +8,103 @@ namespace MyStuff.Controllers
         private StuffContext _db { get; set; }
         public LocationController(StuffContext db) { this._db = db; }
         // GET: LocationController
-        public ActionResult Index()
+        public IActionResult Index()
         {
             return View(_db.Locations.ToList());
         }
 
         // GET: LocationController/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
             return View(_db.Locations.Find(id));
         }
 
         // GET: LocationController/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
-            return View();
+            return View(new Location());
         }
 
         // POST: LocationController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        //[ValidateAntiForgeryToken] //the hell is this?
+        public IActionResult Create(Location location)
         {
+            //keep and eye on this try catch. 
+            List<Location> locations = _db.Locations.ToList();
+            //for(int i = 0; i < locations.Count; i++)
+            //{
+            //    if(locations[i].Name == location.Name)
+            //    {
+            //        ViewBag.Warning = "That name is taken, please be more specific on the name of your location, or edit the other location before continuing.";
+            //        return View(location);
+            //    }
+            //}
             try
             {
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(location);
             }
         }
 
         // GET: LocationController/Edit/5
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
-            return View();
+            Location location = _db.Locations.Find(id);
+            if(location == null)
+            {
+                return View(new Location { Id = id });
+            }
+            return View(location);
         }
 
         // POST: LocationController/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        // [ValidateAntiForgeryToken] Again... what?
+        public IActionResult Edit(Location location)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _db.Locations.Update(location);
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index));
+            
+            // Look in to this try/catch. Why is it scaffolded this way?
+            //try
+            //{
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
         }
 
         // GET: LocationController/Delete/5
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
-            return View();
+            Location location = _db.Locations.Find(id);
+            return View(location);
         }
 
         // POST: LocationController/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        //[ValidateAntiForgeryToken]
+        public IActionResult Delete(Location location)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _db.Locations.Remove(location);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+            
+            //try
+            //{
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
         }
     }
 }
