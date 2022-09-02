@@ -27,7 +27,7 @@ namespace MyStuff.Controllers
 
         // POST: LocationController/Create
         [HttpPost]
-        //[ValidateAntiForgeryToken] //the hell is this?
+        //[ValidateAntiForgeryToken]
         public IActionResult Create(Location location)
         {
             //keep and eye on this try catch. 
