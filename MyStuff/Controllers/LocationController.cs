@@ -27,27 +27,23 @@ namespace MyStuff.Controllers
 
         // POST: LocationController/Create
         [HttpPost]
-        //[ValidateAntiForgeryToken] and another
         public IActionResult Create(Location location)
         {
-            //keep and eye on this try catch. 
+            
             List<Location> locations = _db.Locations.ToList();
-            //for(int i = 0; i < locations.Count; i++)
-            //{
-            //    if(locations[i].Name == location.Name)
-            //    {
-            //        ViewBag.Warning = "That name is taken, please be more specific on the name of your location, or edit the other location before continuing.";
-            //        return View(location);
-            //    }
-            //}
-            try
+
+            for(int i = 0; i < locations.Count; i++)
             {
-                return RedirectToAction(nameof(Index));
+                if(locations[i].Name == location.Name)
+                {
+                    ViewBag.Warning = "That location already exists! Please choose another name, or edit the existing location";
+                    return View(location);
+                }
             }
-            catch
-            {
-                return View(location);
-            }
+            _db.Locations.Add(location);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+
         }
 
         // GET: LocationController/Edit/5
