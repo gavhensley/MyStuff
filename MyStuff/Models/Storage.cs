@@ -8,6 +8,6 @@
         public string Image { get; set; }
         public int LocationId { get; set; }
         public virtual Location Location { get; set; }
-        public List<Item> Items { get; set; }
+        public virtual List<Item> Items { get; set; }
     }
 }

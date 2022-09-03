@@ -13,10 +13,11 @@ namespace MyStuff.Controllers
             return View(_db.Locations.ToList());
         }
 
+
         // GET: LocationController/Details/5
         public IActionResult Details(int id)
         {
-            return View(_db.Locations.Find(id));
+            return View(_db.Locations.ToList().Where(loc => loc.Id == id).FirstOrDefault());
         }
 
         // GET: LocationController/Create

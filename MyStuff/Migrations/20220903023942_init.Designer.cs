@@ -11,14 +11,14 @@ using MyStuff;
 namespace MyStuff.Migrations
 {
     [DbContext(typeof(StuffContext))]
-    [Migration("20220720202754_Init")]
-    partial class Init
+    [Migration("20220903023942_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.6")
+                .HasAnnotation("ProductVersion", "6.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);

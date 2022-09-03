@@ -12,13 +12,14 @@ namespace MyStuff
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
-            builder.UseSqlServer("Server=(localdb)\\mssqllocaldb; Database=GavPossessions; Trusted_connection=True");
+            builder.UseSqlServer("Server=(localdb)\\mssqllocaldb; Database=GavPossessions; Trusted_connection=True").UseLazyLoadingProxies();
+            base.OnConfiguring(builder);
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Location>().HasData(
-                new Location() { Id = 1, Name = "Bedroom", Image = "" },
+                new Location() { Id = 1, Name = "Bedroom", Image = ""},
                 new Location() { Id = 2, Name = "Kitchen", Image = ""}, 
                 new Location() { Id = 3, Name = "Bathroom", Image = ""}
                 );
